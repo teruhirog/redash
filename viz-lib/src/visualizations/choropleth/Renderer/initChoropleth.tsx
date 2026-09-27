@@ -1,6 +1,6 @@
 import { isFunction, isObject, isArray, map } from "lodash";
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-fullscreen";
@@ -30,8 +30,20 @@ const CustomControl = L.Control.extend({
     return div;
   },
   onRemove() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'getContainer' does not exist on type '{ ... Remove this comment to see the full error message
-    ReactDOM.unmountComponentAtNode(this.getContainer());
+    const root = (this as any)._reactRoot;
+    (this as any)._reactRoot = null;
+    // Leaflet removes controls while React may be rendering, so unmount afterwards
+    if (root) {
+      setTimeout(() => root.unmount());
+    }
+  },
+  // Render React content into the control's container
+  renderContent(element: React.ReactNode) {
+    const control = this as any;
+    if (!control._reactRoot) {
+      control._reactRoot = createRoot(control.getContainer());
+    }
+    control._reactRoot.render(element);
   },
 });
 
@@ -157,14 +169,12 @@ export default function initChoropleth(container: any, onBoundsChange: any) {
     if (options.legend.visible && legend.length > 0) {
       _legend.setPosition(options.legend.position.replace("-", ""));
       _map.addControl(_legend);
-      ReactDOM.render(
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      _legend.renderContent(
         <Legend
           // @ts-expect-error ts-migrate(2322) FIXME: Type '{ text: any; color: any; limit: any; }[]' is... Remove this comment to see the full error message
           items={map(legend, (item) => ({ ...item, text: formatValue(item.limit) }))}
           alignText={options.legend.alignText}
-        />,
-        _legend.getContainer()
+        />
       );
     }
   }
