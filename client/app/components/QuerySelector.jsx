@@ -34,6 +34,7 @@ export default function QuerySelector(props) {
   const clearIcon = (
     <i
       className="fa fa-times hide-in-percy"
+      // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: icon used as the Select's clear button
       role="button"
       tabIndex={0}
       aria-label="Clear"
@@ -166,7 +167,7 @@ export default function QuerySelector(props) {
 
 QuerySelector.propTypes = {
   onChange: PropTypes.func.isRequired,
-  selectedQuery: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  selectedQuery: PropTypes.object,
   type: PropTypes.oneOf(["select", "default"]),
   className: PropTypes.string,
   disabled: PropTypes.bool,

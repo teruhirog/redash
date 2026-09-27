@@ -18,7 +18,7 @@ describe("Create Destination", () => {
       .then((availableTypes) => expect(availableTypes).not.to.contain.oneOf(this.deprecatedTypes));
 
     cy.getByTestId("CreateSourceDialog").should("contain", "Email");
-    cy.wait(1000); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
     cy.percySnapshot("Create Destination - Types");
   });
 

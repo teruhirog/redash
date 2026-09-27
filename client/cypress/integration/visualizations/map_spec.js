@@ -24,7 +24,7 @@ describe("Map (Markers)", () => {
       .then(({ id }) => cy.createVisualization(id, "MAP", "Map (Markers)", { mapTileUrl }))
       .then(({ id: visualizationId, query_id: queryId }) => {
         cy.visit(`queries/${queryId}/source#${visualizationId}`);
-        cy.wait(1500); // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.wait(1500);
         cy.getByTestId("ExecuteButton").click();
       });
   });
@@ -55,7 +55,7 @@ describe("Map (Markers)", () => {
     cy.getByTestId("VisualizationPreview").find(".leaflet-control-zoom-in").click();
 
     // Wait for proper initialization of visualization
-    cy.wait(1000); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
     cy.percySnapshot("Visualizations - Map (Markers) with groups", { widths: [viewportWidth] });
   });
 
@@ -87,7 +87,7 @@ describe("Map (Markers)", () => {
     cy.getByTestId("VisualizationPreview").find(".leaflet-control-zoom-in").click();
 
     // Wait for proper initialization of visualization
-    cy.wait(1000); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
     cy.percySnapshot("Visualizations - Map (Markers) with custom markers", { widths: [viewportWidth] });
   });
 });

@@ -64,7 +64,7 @@ describe("Word Cloud", () => {
     cy.login();
     cy.createQuery({ query: SQL }).then(({ id }) => {
       cy.visit(`queries/${id}/source`);
-      cy.wait(1500); // eslint-disable-line cypress/no-unnecessary-waiting
+      cy.wait(1500);
       cy.getByTestId("ExecuteButton").click();
     });
     cy.document().then(injectFont);
@@ -79,7 +79,7 @@ describe("Word Cloud", () => {
     `);
 
     // Wait for proper initialization of visualization
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
 
     cy.getByTestId("VisualizationPreview").find("svg text").should("have.length", 11);
 
@@ -96,7 +96,7 @@ describe("Word Cloud", () => {
     `);
 
     // Wait for proper initialization of visualization
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
 
     cy.getByTestId("VisualizationPreview").find("svg text").should("have.length", 5);
 
@@ -120,7 +120,7 @@ describe("Word Cloud", () => {
     });
 
     // Wait for proper initialization of visualization
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
 
     cy.getByTestId("VisualizationPreview").find("svg text").should("have.length", 2);
 

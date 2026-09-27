@@ -12,7 +12,7 @@ describe("Counter", () => {
     cy.login();
     cy.createQuery({ query: SQL }).then(({ id }) => {
       cy.visit(`queries/${id}/source`);
-      cy.wait(1500); // eslint-disable-line cypress/no-unnecessary-waiting
+      cy.wait(1500);
       cy.getByTestId("ExecuteButton").click();
     });
     cy.getByTestId("NewVisualization").click();
@@ -28,7 +28,7 @@ describe("Counter", () => {
     cy.getByTestId("VisualizationPreview").find(".counter-visualization-container").should("exist");
 
     // wait a bit before taking snapshot
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.percySnapshot("Visualizations - Counter (with defaults)", { widths: [viewportWidth] });
   });
 
@@ -45,7 +45,7 @@ describe("Counter", () => {
     cy.getByTestId("VisualizationPreview").find(".counter-visualization-container").should("exist");
 
     // wait a bit before taking snapshot
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.percySnapshot("Visualizations - Counter (custom label)", { widths: [viewportWidth] });
   });
 
@@ -65,7 +65,7 @@ describe("Counter", () => {
     cy.getByTestId("VisualizationPreview").find(".counter-visualization-container").should("exist");
 
     // wait a bit before taking snapshot
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.percySnapshot("Visualizations - Counter (non-numeric value)", { widths: [viewportWidth] });
   });
 
@@ -81,7 +81,7 @@ describe("Counter", () => {
     cy.getByTestId("VisualizationPreview").find(".counter-visualization-container").should("exist");
 
     // wait a bit before taking snapshot
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.percySnapshot("Visualizations - Counter (target value + trend positive)", { widths: [viewportWidth] });
   });
 
@@ -102,7 +102,7 @@ describe("Counter", () => {
     cy.getByTestId("VisualizationPreview").find(".counter-visualization-container").should("exist");
 
     // wait a bit before taking snapshot
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.percySnapshot("Visualizations - Counter (row number + trend negative)", { widths: [viewportWidth] });
   });
 
@@ -117,7 +117,7 @@ describe("Counter", () => {
     cy.getByTestId("VisualizationPreview").find(".counter-visualization-container").should("exist");
 
     // wait a bit before taking snapshot
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.percySnapshot("Visualizations - Counter (count rows)", { widths: [viewportWidth] });
   });
 
@@ -143,7 +143,7 @@ describe("Counter", () => {
     cy.getByTestId("VisualizationPreview").find(".counter-visualization-container").should("exist");
 
     // wait a bit before taking snapshot
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.percySnapshot("Visualizations - Counter (custom formatting)", { widths: [viewportWidth] });
   });
 
@@ -170,7 +170,7 @@ describe("Counter", () => {
     cy.getByTestId("VisualizationPreview").find(".counter-visualization-container").should("exist");
 
     // wait a bit before taking snapshot
-    cy.wait(500); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.percySnapshot("Visualizations - Counter (format target value)", { widths: [viewportWidth] });
   });
 });

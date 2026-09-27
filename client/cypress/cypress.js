@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, no-console */
+// biome-ignore-all lint/suspicious/noConsole: CLI script that reports progress on the console
 const { find } = require("lodash");
 const { execSync } = require("child_process");
 const { get, post } = require("request").defaults({ jar: true });
@@ -10,7 +10,7 @@ let cypressConfigBaseUrl;
 try {
   const cypressConfig = JSON.parse(fs.readFileSync("cypress.json"));
   cypressConfigBaseUrl = cypressConfig.baseUrl;
-} catch (e) {}
+} catch {}
 
 const baseUrl = process.env.CYPRESS_baseUrl || cypressConfigBaseUrl || "http://localhost:5001";
 
@@ -24,9 +24,9 @@ function seedDatabase(seedValues) {
       const csrfCookie = find(cookies, { key: "csrf_token" });
       if (csrfCookie) {
         if (request.type === "form") {
-          data["formData"] = { ...data["formData"], csrf_token: csrfCookie.value };
+          data.formData = { ...data.formData, csrf_token: csrfCookie.value };
         } else {
-          data["headers"] = { "X-CSRFToken": csrfCookie.value };
+          data.headers = { "X-CSRFToken": csrfCookie.value };
         }
       }
     }
@@ -58,10 +58,7 @@ function stopServer() {
 }
 
 function runCypressCI() {
-  const {
-    GITHUB_REPOSITORY,
-    CYPRESS_OPTIONS, // eslint-disable-line no-unused-vars
-  } = process.env;
+  const { GITHUB_REPOSITORY } = process.env;
 
   if (GITHUB_REPOSITORY === "getredash/redash" && process.env.CYPRESS_RECORD_KEY) {
     process.env.CYPRESS_OPTIONS = "--record";
