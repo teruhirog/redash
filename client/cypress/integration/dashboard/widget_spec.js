@@ -167,7 +167,7 @@ describe("Widget", () => {
 
     createQueryAndAddWidget(this.dashboardId, queryData, widgetOptions).then(() => {
       cy.visit(this.dashboardUrl);
-      cy.getByTestId("TableVisualization").next(".ant-pagination.mini").should("be.visible");
+      cy.getByTestId("TableVisualization").next(".ant-pagination-mini").should("be.visible");
       cy.percySnapshot("Shows fixed mini pagination for overflowing tabular content");
     });
   });
