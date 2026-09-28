@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { chain, cloneDeep, find, map } from "lodash";
+import { chain, cloneDeep, find } from "lodash";
 import cx from "classnames";
-import { Responsive, WidthProvider } from "react-grid-layout";
+import { Responsive, WidthProvider } from "react-grid-layout/legacy";
 import { VisualizationWidget, TextboxWidget, RestrictedWidget } from "@/components/dashboards/dashboard-widget";
 import { FiltersType } from "@/components/Filters";
 import cfg from "@/config/dashboard-grid-options";
@@ -235,10 +235,6 @@ class DashboardGrid extends React.Component {
       widgets,
     } = this.props;
     const className = cx("dashboard-wrapper", isEditing ? "editing-mode" : "preview-mode");
-    // react-grid-layout prefers an item's `data-grid` over the `layouts` prop, so only use it
-    // for widgets that aren't in the layout yet; after that, the layout state (auto-height,
-    // drag & resize) is the source of truth
-    const layoutItemIds = new Set(map(this.state.layouts[MULTI], "i"));
 
     return (
       <div className={className}>
@@ -260,7 +256,7 @@ class DashboardGrid extends React.Component {
           {widgets.map((widget) => (
             <div
               key={widget.id}
-              data-grid={layoutItemIds.has(widget.id.toString()) ? undefined : DashboardGrid.normalizeFrom(widget)}
+              data-grid={DashboardGrid.normalizeFrom(widget)}
               data-widgetid={widget.id}
               data-test={`WidgetId${widget.id}`}
               className={cx("dashboard-widget-wrapper", {
